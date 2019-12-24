@@ -4,7 +4,7 @@ Test Automation FrameWork Project using java - maven - testng - POM
 And using BDD and DDT frameworks in the project
 
 
-#Test stach:
+# Tech stach:
 
 - java 
 - maven
