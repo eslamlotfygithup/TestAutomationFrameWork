@@ -9,7 +9,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -30,11 +33,11 @@ public class Testbase extends AbstractTestNGCucumberTests{
 		HashMap<String, Object> chromepre = new HashMap<String, Object>();
 		chromepre.put("profile.default_content_settings.popups", 0);
 		chromepre.put("download.default_directory", downloadFilepath);
-		options.setExperimentalOption("prefs", chromepre);
-		options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		options.addArguments("disable-infobars");
-		options.addArguments("disable-extensions");
-		options.addArguments("--disable-notifications");
+		//options.setExperimentalOption("prefs", chromepre);
+		//options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		//options.addArguments("disable-infobars");
+		//options.addArguments("disable-extensions");
+		//options.addArguments("--disable-notifications");
 		return options;
 	}
 
@@ -55,15 +58,30 @@ public class Testbase extends AbstractTestNGCucumberTests{
 		if (browserName.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver(chromeoptions());
-			
+
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver(firefoxoptions());
-			
+
 		} else if (browserName.equalsIgnoreCase("ie")) {
 			System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
+
+
+			//headless browser
+
+		} else if (browserName.equalsIgnoreCase("headless")) {
+			//System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "\\drivers\\IEDriverServer.exe");
+			DesiredCapabilities caps= new DesiredCapabilities();
+			caps.setJavascriptEnabled(true);
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, 
+					System.getProperty("user.dir") + "\\drivers\\phantomjs.exe");
+			String [] phantomjs = {"--web-security=no","--ignore-ssl-errors=yes"};
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS, phantomjs);
+			driver = new PhantomJSDriver(caps);
 		}
+
+
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 		driver.navigate().to("https://demo.nopcommerce.com");
