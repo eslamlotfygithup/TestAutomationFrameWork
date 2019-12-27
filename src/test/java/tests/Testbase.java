@@ -80,6 +80,15 @@ public class Testbase extends AbstractTestNGCucumberTests{
 			caps.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS, phantomjs);
 			driver = new PhantomJSDriver(caps);
 		}
+		else if (browserName.equalsIgnoreCase("chrome-headless")) {
+
+		   System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
+           ChromeOptions option = new ChromeOptions();
+           option.addArguments("--headless");
+           option.addArguments("--window-size=1920,1080");
+           driver = new ChromeDriver(option);
+
+		}
 
 
 		driver.manage().window().maximize();
