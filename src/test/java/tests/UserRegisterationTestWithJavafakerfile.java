@@ -24,7 +24,6 @@ public class UserRegisterationTestWithJavafakerfile extends Testbase{
 
 
 
-
 	Faker fakeData = new Faker();
 
 	String firstname = fakeData.name().firstName();
