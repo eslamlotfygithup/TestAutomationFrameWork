@@ -16,16 +16,13 @@ import pages.LoginPage;
 import pages.UserRegisterationPage;
 
 public class UserRegisterationTestWithJavafakerfile extends Testbase{
-
-
+	
 	HomePage homepageobject;
 	UserRegisterationPage userRegisterobject;
 	LoginPage loginobject;
 
 
-
 	Faker fakeData = new Faker();
-
 	String firstname = fakeData.name().firstName();
 	String lastname = fakeData.name().lastName();
 	String email = fakeData.internet().emailAddress();

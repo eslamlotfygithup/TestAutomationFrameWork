@@ -5,7 +5,7 @@
 		<classes>
 			<class name="tests.UserRegisterationTestWithJavafakerfile" />
 			<class name="tests.SearchProductUsingAutocompleteTest" />
-			<class name="tests.AddProductToWishlistTest" />
+			<class name="tests.ContactUsTest" />
 		</classes>
 	</test>
 </suite> 
